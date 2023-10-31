@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #boat {
+            animation: tilt 3s ease-in-out infinite;
+            transform-origin: center 75%;
+        }
+
+        @keyframes tilt {
+            0%, 100% {
+                transform: rotate(-10deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }  
+        }
+
+        #topsail {
+            animation: topbend 1s ease-in-out infinite;
+        }
+
+        @keyframes topbend {
+            0%, 100% {
+                d: path("M 130 150 C 180 110, 180 150, 230 110");
+            }
+            50% {
+                d: path("M 130 150 C 180 150, 180 110, 230 110");
+            }
+        }
+
+        #botsail {
+            animation: botbend 1s ease-in-out infinite;
+        }
+
+        @keyframes botbend {
+            0%, 100% {
+                d: path("M 130 150 C 180 150, 180 190, 230 190");
+            }
+            50% {
+                d: path("M 130 150 C 180 190, 180 150, 230 190");
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <p>poop</p>
+    <svg width="500" height="500" id="boat" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 100 300 C 100 450, 400 450, 400 300" stroke="black" fill="transparent" stroke-width="5"/>
+        <line x1="100" y1="300" x2="400" y2="300" stroke="black" stroke-width="5" stroke-linecap="round"/>
+        <rect x="230" y="100" width="40" height="200" stroke="black" fill="transparent" stroke-width="5"/>
+        <ellipse cx="250" cy="98" rx="22" ry="10"/>
+        <path id="topsail" stroke="black" fill="transparent" stroke-width="5" stroke-linecap="round"/>
+        <path id="botsail" stroke="black" fill="transparent" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="150" cy="250" r="25" stroke="black" fill="transparent" stroke-width="5"/>
+        <line x1="130" y1="270" x2="130" y2="300" stroke="black" stroke-width="5" stroke-linecap="round"/>
+        <line x1="170" y1="270" x2="170" y2="300" stroke="black" stroke-width="5" stroke-linecap="round"/>
+        <text x="130" y="255" font-size="18" font-weight="bold" fill="black">ಥ ಥ</text>
+        <line x1="145" y1="260" x2="155" y2="260" stroke="black" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+</body>
+</html>
