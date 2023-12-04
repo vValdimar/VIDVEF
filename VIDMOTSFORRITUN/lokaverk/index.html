@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map and Weather</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+  <button id="toggle-button" onclick="toggleMap()">Toggle Map</button>
+
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
+
+  <p id="coordinates">Center Coordinates: <span id="latlng"></span></p>
+  <p id="country"><span id="countryName"></span></p>
+  <p id="city"></p>
+  <p id="time"></p>
+
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQsS8D7X9PRDrtg64mkCSgy0NPVI0IuXE    &libraries=places&callback=initMap">
+  </script>
+  
+  <script src="java.js"></script>
+</body>
+</html>
