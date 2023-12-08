@@ -1,25 +1,81 @@
 body {
-    font-family: "Quicksand", sans-serif;
-    font-weight: 600;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  height: 100vh;
+  overflow: hidden;
+}
+
+svg {
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 #map-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: none;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
 
-  #map {
-    height: 100%;
-    width: 100%;
-  }
+#map {
+  height: 100vh;
+  width: 100vw;
+}
 
-  #toggle-button {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 1;
-  }
+#marker {
+  position: fixed;
+  height: 2vh;
+  width: 2vh;
+  top: 49vh;
+  left: 49vw;
+  background-color: red;
+  border-radius: 50%;
+}
+
+#sun {
+  transition: cy 1s ease;
+}
+
+#toggle-button {
+  padding: 0;
+  cursor: pointer;
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+}
+
+#icon {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+#info {
+  color: white;
+  position: absolute;
+  font-size: 120%;
+  top: 25%;
+  padding-left: 4em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2) ;
+}
+#country {
+  font-size: 400%;
+  margin: 0;
+}
+#city, #temperature {
+  font-size: 200%;
+  margin: 0;
+}
+#time {
+  margin-bottom: 2em;
+}
+#weather {
+  margin: 0;
+}

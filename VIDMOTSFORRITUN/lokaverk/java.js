@@ -1,9 +1,13 @@
-
 let map;
 let isMapVisible = false;
 
+var script = document.createElement('script');
+script.async = true;
+script.defer = true;
+script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCQsS8D7X9PRDrtg64mkCSgy0NPVI0IuXE&libraries=places&callback=initMap`;
+document.head.appendChild(script);
+
 function initMap() {
-  // Try to get user's location
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -12,57 +16,45 @@ function initMap() {
           lng: position.coords.longitude
         };
 
-        // Initialize the map with the user's location
         map = new google.maps.Map(document.getElementById('map'), {
           center: userLocation,
           zoom: 12
         });
 
-        // Display initial center coordinates
-        displayCenterCoordinates();
         displayWeatherResults();
         displayCountry();
 
-        // Add an event listener to update coordinates when the map is moved
-        map.addListener('center', () => {
-            const center = map.getCenter();
-            displayCenterCoordinates();
-            addMarker(center);
-        });
       },
       (error) => {
         console.error('Error getting user location:', error);
-        // Default to a fallback location if geolocation fails
         initFallbackMap();
       }
     );
   } else {
     console.error('Geolocation is not supported by this browser.');
-    // Default to a fallback location if geolocation is not supported
     initFallbackMap();
   }
 }
 
 function initFallbackMap() {
-  // Default to a fallback location (e.g., city center)
   map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 0, lng: 0 },
     zoom: 12
   });
-
-  // Display initial center coordinates
-  displayCenterCoordinates();
-
-  // Add an event listener to update coordinates when the map is moved
-  map.addListener('idle', () => {
-    const center = map.getCenter();
-    displayCenterCoordinates();
-    addMarker(center);
-  });
 }
 
 function adjustLongitude(longitude) {
-    return (longitude + 180) % 360 - 180;
+    return (longitude % 360 + 540) % 360 - 180;
+}
+
+function setColors(sunHeight) {
+  sunHeight = (1-sunHeight/200)*200;
+  document.body.style.transition = 'background 1s ease'
+  document.body.style.background = `linear-gradient(to bottom, 
+  rgb(${sunHeight/1.5}, ${sunHeight/1.25}, ${sunHeight*1.25}), 
+  rgb(${10+sunHeight*3}, ${10+sunHeight*2.5}, ${50+sunHeight*1.5}))`;
+  document.getElementById('sun').setAttribute('cy', `${120-sunHeight/2}%`)
+  document.getElementById('ground').setAttribute('fill', `rgb(${20+sunHeight/2}, ${20+sunHeight}, ${20+sunHeight/2})`)
 }
 
 function displayCountry() {
@@ -76,31 +68,29 @@ function displayCountry() {
       );
 
       const countryName = countryComponent ? countryComponent.formatted_address : 'N/A';
-      document.getElementById('countryName').innerText = countryName;
+      document.getElementById('country').innerText = countryName;
     } else {
       console.error('Geocode was not successful for the following reason:', status);
-      document.getElementById('countryName').innerText = 'N/A';
+      document.getElementById('country').innerText = 'N/A';
     }
   });
 }
 
-function displayCenterCoordinates() {
-  const center = map.getCenter();
-  document.getElementById('latlng').innerText = center.lat() + ', ' + adjustLongitude(center.lng());
-}
-
 function toggleMap() {
   const mapContainer = document.getElementById('map-container');
-  const button = document.getElementById('toggle-button');
+  const stuff = document.getElementById('stuff');
+  const button = document.getElementById('icon');
 
   isMapVisible = !isMapVisible;
 
   if (isMapVisible) {
     mapContainer.style.display = 'block';
-    button.innerText = 'Toggle Weather';
+    stuff.style.display = 'none'
+    icon.setAttribute('src', 'https://raw.githubusercontent.com/vValdimar/VIDVEF/main/VIDMOTSFORRITUN/weather%20icon.png');
   } else {
-    mapContainer.style.display = 'none';    
-    button.innerText = 'Toggle Map';
+    mapContainer.style.display = 'none';
+    stuff.style.display = 'initial'   
+    icon.setAttribute('src', 'https://raw.githubusercontent.com/vValdimar/VIDVEF/main/VIDMOTSFORRITUN/map%20icon.png');
     displayWeatherResults();
     displayCountry();
   }
@@ -108,7 +98,7 @@ function toggleMap() {
 
 function displayWeatherResults() {
   const center = map.getCenter();
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${center.lat()}&lon=${center.lng()}&appid=c547660549d1834abba3194d9b68fbad`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${center.lat()}&lon=${adjustLongitude(center.lng())}&appid=c547660549d1834abba3194d9b68fbad`;
 
   console.log(apiUrl);
 
@@ -119,9 +109,12 @@ function displayWeatherResults() {
         const date = new Date(unixTime * 1000);
         document.getElementById("city").innerText = data.name;
         document.getElementById("time").innerText = date.toLocaleTimeString('en-US');
+        document.getElementById("temperature").innerText = `${(data.main.temp-273.15).toFixed(1)}°C`
+        document.getElementById("weather").innerText = data.weather[0].main;
 
         const midDay = (data.sys.sunrise + data.sys.sunset)/2;
-        console.log(Math.abs(data.dt - midDay));
+        const sunLevel = (Math.abs(data.dt - midDay));
+        setColors(Math.round(sunLevel/43200*200));
     })
     .catch(error => {
         console.log('Error...', error);

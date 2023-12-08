@@ -1,0 +1,13 @@
+/* Style for the raindrop */
+.raindrop {
+    fill: #6fa0e3;
+    animation: fall linear infinite;
+  }
+  
+  /* Keyframes for the raindrop animation */
+  @keyframes fall {
+    to {
+      transform: translateY(600px); /* Adjust this value for the desired length of the raindrop fall */
+    }
+  }
+  
