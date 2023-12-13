@@ -5,7 +5,7 @@ body {
   overflow: hidden;
 }
 
-svg {
+#canvas {
   position: fixed;
   top: 0;
   left: 0;
@@ -61,9 +61,9 @@ svg {
   color: white;
   position: absolute;
   font-size: 120%;
-  top: 25%;
+  top: 20%;
   padding-left: 4em;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2) ;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 #country {
   font-size: 400%;
@@ -78,4 +78,27 @@ svg {
 }
 #weather {
   margin: 0;
+}
+#weathericon {
+  display: flex;
+}
+#arrow {
+  transition: transform 1s ease;
+}
+#windbox {
+  padding-left: 1em;
+  margin-top: 0;
+}
+ellipse {
+  transition: cx 1s ease;
+}
+.snowflake {
+  stroke: #c3dae7b4;
+  stroke-width: 10; /* Width of the raindrop line */
+  stroke-linecap: round;
+}
+.raindrop {
+  stroke: #1d567f79;
+  stroke-width: 2; /* Width of the raindrop line */
+  stroke-linecap: round;
 }

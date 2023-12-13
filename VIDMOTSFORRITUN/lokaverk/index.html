@@ -18,15 +18,43 @@
   <div id="stuff">
     <svg id="canvas" width="100vw" height="100vh" xmlns="https://www.w3.org/2000/svg">
       <circle id="sun" cx="50%" cy="120%" r="15vh" fill="#FFF39E"/>
-      <circle id="ground" cx="50%" cy="380vh" r="300vh" fill="green"/>
+      <g id="weatherstuff">
+        <g id="left" data-offscreen-x="-50%">
+          <ellipse data-cx="10%" cx="-50%" cy="37%" rx="40%" ry="5%" fill="white"/>
+          <ellipse data-cx="10%" cx="-50%" cy="35%" rx="35%" ry="10%" fill="rgba(255, 255, 255, 0.8)"/>
+          <ellipse data-cx="0%" cx="-50%" cy="30%" rx="25%" ry="15%" fill="rgba(255, 255, 255, 0.5)"/>
+          <ellipse data-cx="0%" cx="-50%" cy="50%" rx="12%" ry="2%" fill="rgba(255, 255, 255, 0.5)"/>
+        </g>
+        <g id="right" data-offscreen-x="150%">
+          <ellipse data-cx="90%" cx="150%" cy="45%" rx="50%" ry="8%" fill="white"/>
+          <ellipse data-cx="90%" cx="150%" cy="40%" rx="30%" ry="10%" fill="rgba(255, 255, 255, 0.8)"/>
+          <ellipse data-cx="100%" cx="150%" cy="37%" rx="20%" ry="15%" fill="rgba(255, 255, 255, 0.5)"/>
+          <ellipse data-cx="100%" cx="150%" cy="60%" rx="20%" ry="3%" fill="rgba(255, 255, 255, 0.5)"/>
+        </g>
+        <g id="rainbox"></g>
+      </g>
+      <circle id="ground" cx="50%" cy="380vh" r="300vh" fill="white"/>
+      <rect width="100vw" height="100vh" fill="rgba(50, 50, 255, 0.1)"/>
     </svg>
 
     <div id="info">
-      <p id="country"></p>
-      <p id="city"></p>
-      <p id="time"></p>
-      <p id="temperature"></p>
-      <p id="weather"></p>
+      <p id="country">Loading...</p>
+      <p id="city">Loading...</p>
+      <p id="time">Loading...</p>
+      <div style="display: flex;">
+        <div>
+          <p id="temperature">Loading...</p>
+          <p id="weather">Loading...</p>
+        </div>
+        <img id="weathericon"/>
+      </div>
+      <div style="display: flex;">
+        <svg width="2em" height="2em" xmlns="https://www.w3.org/2000/svg">
+          <circle cx="50%" cy="50%" r="45%" fill="rgba(255, 255, 255, 0.2)" stroke="white" stroke-width="10%"/>
+          <text id="arrow" x="46%" y="53%" fill="white" text-anchor="middle" alignment-baseline="middle" letter-spacing="-3" style="text-shadow: none;">◁▶</text>
+        </svg>
+        <p id="windbox">Wind:<br/><span id="wind">Loading...</span></p>
+      </div>
     </div>
   </div>
   
