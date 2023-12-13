@@ -178,4 +178,4 @@ function displayWeatherResults() {
         console.log('Error...', error);
     })
 }
-setInterval(createRaindrop, (isSnow ? 40: 10));
+setInterval(createRaindrop, 25);
