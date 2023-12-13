@@ -148,8 +148,6 @@ function displayWeatherResults() {
   const center = map.getCenter();
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${center.lat()}&lon=${adjustLongitude(center.lng())}&appid=c547660549d1834abba3194d9b68fbad`;
 
-  console.log(apiUrl);
-
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
@@ -167,7 +165,6 @@ function displayWeatherResults() {
         document.getElementById("arrow").setAttribute('transform', `rotate(${data.wind.deg-90} ${centerX} ${centerY})`);
         document.getElementById("wind").innerText = `${data.wind.speed}m/s`;
 
-
         const midDay = (data.sys.sunrise + data.sys.sunset)/2;
         const sunLevel = (Math.abs(data.dt - midDay));
         setColors(Math.round(sunLevel/43200*200));
@@ -175,7 +172,6 @@ function displayWeatherResults() {
         rainbox.innerHTML = ''
         isSnow = weatherMain == "Snow";
         raining = ["Snow", "Rain"].includes(weatherMain);
-        console.log(isSnow, weatherMain);
         
     })
     .catch(error => {
